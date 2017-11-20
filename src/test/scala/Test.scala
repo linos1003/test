@@ -5,7 +5,8 @@ import org.scalatest.FlatSpec
   */
 class Test extends FlatSpec {
   "Mowers positions" should " be calculated as expected " in {
-    println("hello")
+    val load
+
     assert(1 == 1)
   }
 }
