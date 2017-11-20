@@ -26,8 +26,8 @@ object PositionsManger {
   def computeNewPosition(mower: Mower, commandes: Seq[Cmnd]) = {
     commandes.foreach {
       x =>
-        val next = nextPosition(mower, x)
-        if (next == null) {}
+         nextPosition(mower, x)
+
 
     }
   }
@@ -37,21 +37,18 @@ object PositionsManger {
   def nextPosition(mower: Mower, cmnd: Cmnd): Mower = {
     var newMower = null
     (cmnd, mower.orientation) match {
-      case (G, W) => Mower(mower.x, mower.y, S)
-      case (G, S) => Mower(mower.x, mower.y, E)
-      case (G, E) => Mower(mower.x, mower.y, N)
-      case (G, N) => Mower(mower.x, mower.y, W)
-      case (D, W) => Mower(mower.x, mower.y, N)
-      case (D, S) => Mower(mower.x, mower.y, E)
-      case (D, E) => Mower(mower.x, mower.y, S)
-      case (D, N) => Mower(mower.x, mower.y, W)
-      case (A, W) => Mower(mower.x, mower.y, W)
-      case (A, S) => Mower(mower.x, mower.y, S)
-      case (A, E) => Mower(mower.x, mower.y, E)
-      case (A, N) => Mower(mower.x, mower.y, N)
-
-
-
+      case (G, W) | (D, E) => Mower(mower.x, mower.y, S)
+      case (G, S) | (D, S) => Mower(mower.x, mower.y, E)
+      case (G, E) | (D, W) => Mower(mower.x, mower.y, N)
+      case (G, N) | (D, N) => Mower(mower.x, mower.y, W)
+      //    case (D, W) => Mower(mower.x, mower.y, N)
+      //     case (D, S) => Mower(mower.x, mower.y, E)
+      //   case (D, E) => Mower(mower.x, mower.y, S)
+      //  case (D, N) => Mower(mower.x, mower.y, W)
+      case (A, W) => Mower(mower.x - 1, mower.y, W)
+      case (A, S) => Mower(mower.x, mower.y - 1, S)
+      case (A, E) => Mower(mower.x + 1, mower.y, E)
+      case (A, N) => Mower(mower.x, mower.y + 1, N)
     }
   }
 
