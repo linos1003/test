@@ -1,14 +1,12 @@
 package utils
 
-import models.Lawn
+import utils.Parser.{parseCommandes, parseMower}
+
 
 /**
   * Created by bsmida on 20/11/17.
   */
 object PositionsManger {
 
-  def initLawn(input: String): Lawn = {
-    val values = input.split(" ").asInstanceOf[Array[Int]]
-    new Lawn(values(0), values(1))
-  }
+  def loadMowersAndCommandes(inputs: Seq[String]) = inputs.drop(1).sliding(2, 2).toList.map(x => (parseMower(x(0)), parseCommandes(x(1))))
 }

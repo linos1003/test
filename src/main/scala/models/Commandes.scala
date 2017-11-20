@@ -13,7 +13,17 @@ object Commandes {
 
   case object A extends Cmnd
 
-  val commandes = Seq(G, D, A)
+  case object X extends Cmnd
 
+  val commandes = Seq(G, D, A, X)
 
+  def getCommandefromSting(str: Char): Cmnd = {
+
+    str match {
+      case 'A' => A
+      case 'D' => D
+      case 'G' => G
+      case _ => X
+    }
+  }
 }

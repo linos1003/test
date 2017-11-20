@@ -15,6 +15,19 @@ object Orientation {
 
   case object S extends Ornt
 
-  val orientations=Seq(N,E,W,S)
+  case object X extends Ornt
+
+  val orientations = Seq(N, E, W, S, X)
+
+  def getOrientationfromSting(str: String): Ornt = {
+
+    str match {
+      case "N" => N
+      case "E" => E
+      case "W" => W
+      case "S" => S
+      case _ => X
+    }
+  }
 }
 
