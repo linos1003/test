@@ -16,7 +16,7 @@ object PositionsManger {
   var lawn: Lawn = new Lawn(0, 0)
 
   def initLastPostions(inputs: Seq[(Mower, List[Cmnd])]) = lastPositions = inputs.map { x =>
-    if (isInLawnArea(x)) x._1
+    if (isInLawnArea(x._1)) x._1
     else throw new PositionOffTheLawnException(x._1)
   }
 
@@ -26,13 +26,13 @@ object PositionsManger {
   def computeNewPosition(mower: Mower, commandes: Seq[Cmnd]) = {
     commandes.foreach {
       x =>
-         nextPosition(mower, x)
-
-
+        val next = nextPosition(mower, x)
+        if (isPositionEmpty(next) && isInLawnArea(next)) next
+        else x
     }
   }
 
-  def isPositionEmpty(x: Int, y: Int): Boolean = lastPositions.filter(p => p.hasSamePosition(new Mower(x, y, X))).isEmpty
+  def isPositionEmpty(mower: Mower): Boolean = lastPositions.filter(p => p.hasSamePosition(mower)).isEmpty
 
   def nextPosition(mower: Mower, cmnd: Cmnd): Mower = {
     var newMower = null
@@ -52,8 +52,8 @@ object PositionsManger {
     }
   }
 
-  private def isInLawnArea(x: (Mower, List[Cmnd])) = {
-    x._1.x <= lawn.x && x._1.y <= lawn.y
+  def isInLawnArea(x: Mower) = {
+    x.x <= lawn.x && x.y <= lawn.y
   }
 
 }
