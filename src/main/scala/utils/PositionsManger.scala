@@ -1,6 +1,5 @@
 package utils
 
-import exceptions.PositionOffTheLawnException
 import models.Commandes.{A, Cmnd, D, G}
 import models.Orientation._
 import models.{Lawn, Mower}
@@ -14,24 +13,44 @@ object PositionsManger {
 
   var lawn: Lawn = new Lawn(0, 0)
 
+  /**
+    *
+    * @param inputs
+    * @return
+    */
   def loadMowersAndCommandes(inputs: Seq[String]): Seq[(Mower, List[Cmnd])] = inputs.drop(1).sliding(2, 2).toList.map(x => (parseMower(x(0)), parseCommandes(x(1))))
 
+  /**
+    * Function used to Calculate the final position of a given Mower in terms of a given commands list
+    * Using the nextPostion function , we loop the list of commands and  calculate  the  new  position
+    * If the next postion is off the lawn area , then we conserve the last position.
+    *
+    * @param mower
+    * @param commandes
+    * @return
+    */
   def computeNewPosition(mower: Mower, commandes: Seq[Cmnd]) = {
-    var newMower=mower
+    var newMower = mower
     commandes.foreach {
       x =>
         val next = nextPosition(newMower, x)
         if (isInLawnArea(next))
-          newMower=next
+          newMower = next
     }
     newMower
   }
 
 
-
-
   //TODO add the _ case
 
+  /**
+    * Function used to calculate the next position of a given Mower in terms of a given Command
+    * Assuming that the next north position of (x, y) is  (x, y+1)
+    *
+    * @param mower
+    * @param cmnd
+    * @return
+    */
   def nextPosition(mower: Mower, cmnd: Cmnd): Mower = {
     var newMower = null
     (cmnd, mower.orientation) match {
@@ -50,8 +69,17 @@ object PositionsManger {
     }
   }
 
+  /**
+    * Function used to know if a given Mower is in/out the Lawn Area.
+    * A Mower is inside  the   Lawn   only if its coordinates  (x, y)
+    * are both between 0 and the lawn lengths
+    *
+    * @param x : Mower
+    * @return true if the Mower is in the Lawn Area
+    */
+
   def isInLawnArea(x: Mower) = {
-    x.x <= lawn.x && x.y <= lawn.y
+    x.x <= lawn.x && x.y <= lawn.y && x.x >= 0 && x.y >= 0
   }
 
 
