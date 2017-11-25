@@ -20,7 +20,7 @@ class Test extends FlatSpec {
   }
 
   /**
-    *  Another custom tes use case
+    * Another custom tes use case
     */
   "USE CASE 2: Mowers positions" should " be calculated as expected " in {
     val inputs = readFile("src/test/resources/in/mower_use_case_2.in")
@@ -33,11 +33,4 @@ class Test extends FlatSpec {
   }
 
 
-  /**
-    *
-    * @param path
-    * @return
-    */
-
-  def loadPositions(path: String) = readFile(path).map(parseMower)
 }

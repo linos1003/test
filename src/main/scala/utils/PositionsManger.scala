@@ -3,7 +3,7 @@ package utils
 import models.Commandes.{A, Cmnd, D, G}
 import models.Orientation._
 import models.{Lawn, Mower}
-import utils.Parser.{parseCommandes, parseMower}
+import utils.Parser.{parseCommandes, parseMower, readFile}
 
 
 /**
@@ -84,6 +84,16 @@ object PositionsManger {
     x.x <= lawn.x && x.y <= lawn.y && x.x >= 0 && x.y >= 0
   }
 
+  /**
+    *
+    * @param path
+    * @return
+    */
 
+  def loadPositions(path: String) = readFile(path).map(parseMower)
+
+
+
+  def isPositionEmpty(mower: Mower,seq: Seq[Mower]): Boolean = seq.filter(p => p.hasSamePosition(mower)).isEmpty
 
 }
