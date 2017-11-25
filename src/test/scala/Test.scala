@@ -12,9 +12,8 @@ class Test extends FlatSpec {
     lawn = initLawn(inputs(0))
 
     val mowers = loadMowersAndCommandes(inputs)
-    initLastPostions(mowers)
-    mowers.map(x => computeNewPosition(x._1, x._2))
-    assert(lastPositions.toSet==expectedPositions.toSet)
+    val l = mowers.map(x => computeNewPosition(x._1, x._2))
+    assert(l.toSet == expectedPositions.toSet)
   }
 
   def loadPositions(path: String) = readFile(path).map(parseMower)

@@ -12,27 +12,25 @@ import utils.Parser.{parseCommandes, parseMower}
   */
 object PositionsManger {
 
-  var lastPositions: Seq[Mower] = Seq()
   var lawn: Lawn = new Lawn(0, 0)
-
-  def initLastPostions(inputs: Seq[(Mower, List[Cmnd])]) = lastPositions = inputs.map { x =>
-    if (isInLawnArea(x._1)) x._1
-    else throw new PositionOffTheLawnException(x._1)
-  }
-
 
   def loadMowersAndCommandes(inputs: Seq[String]): Seq[(Mower, List[Cmnd])] = inputs.drop(1).sliding(2, 2).toList.map(x => (parseMower(x(0)), parseCommandes(x(1))))
 
   def computeNewPosition(mower: Mower, commandes: Seq[Cmnd]) = {
+    var newMower=mower
     commandes.foreach {
       x =>
-        val next = nextPosition(mower, x)
-        if (isPositionEmpty(next) && isInLawnArea(next)) next
-        else x
+        val next = nextPosition(newMower, x)
+        if (isInLawnArea(next))
+          newMower=next
     }
+    newMower
   }
 
-  def isPositionEmpty(mower: Mower): Boolean = lastPositions.filter(p => p.hasSamePosition(mower)).isEmpty
+
+
+
+  //TODO add the _ case
 
   def nextPosition(mower: Mower, cmnd: Cmnd): Mower = {
     var newMower = null
@@ -55,5 +53,9 @@ object PositionsManger {
   def isInLawnArea(x: Mower) = {
     x.x <= lawn.x && x.y <= lawn.y
   }
+
+
+  //TODO print lawn for each step
+
 
 }
