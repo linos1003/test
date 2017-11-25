@@ -14,11 +14,14 @@ object PositionsManger {
   var lawn: Lawn = new Lawn(0, 0)
 
   /**
+    * Function used to extract mowers from the input text.
+    * Assuming tha the first line of the String Seq is referenced to the Lawn length.
     *
     * @param inputs
     * @return
     */
-  def loadMowersAndCommandes(inputs: Seq[String]): Seq[(Mower, List[Cmnd])] = inputs.drop(1).sliding(2, 2).toList.map(x => (parseMower(x(0)), parseCommandes(x(1))))
+
+  def loadMowersAndCommands(inputs: Seq[String]): Seq[(Mower, List[Cmnd])] = inputs.drop(1).sliding(2, 2).toList.map(x => (parseMower(x(0)), parseCommandes(x(1))))
 
   /**
     * Function used to Calculate the final position of a given Mower in terms of a given commands list
@@ -29,6 +32,7 @@ object PositionsManger {
     * @param commandes
     * @return
     */
+
   def computeNewPosition(mower: Mower, commandes: Seq[Cmnd]) = {
     var newMower = mower
     commandes.foreach {
@@ -40,9 +44,6 @@ object PositionsManger {
     newMower
   }
 
-
-  //TODO add the _ case
-
   /**
     * Function used to calculate the next position of a given Mower in terms of a given Command
     * Assuming that the next north position of (x, y) is  (x, y+1)
@@ -51,6 +52,7 @@ object PositionsManger {
     * @param cmnd
     * @return
     */
+
   def nextPosition(mower: Mower, cmnd: Cmnd): Mower = {
     var newMower = null
     (cmnd, mower.orientation) match {
@@ -82,8 +84,6 @@ object PositionsManger {
     x.x <= lawn.x && x.y <= lawn.y && x.x >= 0 && x.y >= 0
   }
 
-
-  //TODO print lawn for each step
 
 
 }

@@ -14,7 +14,7 @@ class Test extends FlatSpec {
     val expectedPositions = loadPositions("src/test/resources/out/mower.out")
     lawn = initLawn(inputs(0))
 
-    val mowers = loadMowersAndCommandes(inputs)
+    val mowers = loadMowersAndCommands(inputs)
     val l = mowers.map(x => computeNewPosition(x._1, x._2))
     assert(l.toSet == expectedPositions.toSet)
   }
@@ -27,7 +27,7 @@ class Test extends FlatSpec {
     val expectedPositions = loadPositions("src/test/resources/out/mower_use_case_2.out")
     lawn = initLawn(inputs(0))
 
-    val mowers = loadMowersAndCommandes(inputs)
+    val mowers = loadMowersAndCommands(inputs)
     val l = mowers.map(x => computeNewPosition(x._1, x._2))
     assert(l.toSet == expectedPositions.toSet)
   }
