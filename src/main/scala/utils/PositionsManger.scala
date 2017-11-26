@@ -33,18 +33,15 @@ object PositionsManger {
 
   def computeNewPosition(mower: Mower, commands: Seq[Cmnd], lawn: Lawn) = {
     var newMower = mower
-    commands.foreach {
-      x =>
-        val next = nextPosition(newMower, x)
-        if (isInLawnArea(next, lawn))
-          newMower = next
-    }
-    commands.map(x => {
+
+    def nxt(x: Cmnd) = {
       val next = nextPosition(newMower, x)
       if (isInLawnArea(next, lawn))
-         next
+        newMower = next
     }
-    )
+
+    commands.map { x => nxt(x) }
+
     newMower
   }
 
@@ -102,8 +99,9 @@ object PositionsManger {
 
   def getFinalPositions(inputs: Seq[String], lawn: Lawn) = {
     val mowers = loadMowersAndCommands(inputs)
-    val l = mowers.map(x => computeNewPosition(x._1.asInstanceOf[Mower], x._2.asInstanceOf[List[Cmnd]], lawn))
+    val l = mowers.map { case (mower, cmnds) => computeNewPosition(mower.asInstanceOf[Mower], cmnds.asInstanceOf[List[Cmnd]], lawn) }
     l
   }
+
 
 }

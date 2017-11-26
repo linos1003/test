@@ -53,4 +53,6 @@ class TestCase extends FlatSpec {
     assert(l == expectedPositions.toList)
   }
 
+  //todo add test for no square  lawn
+
 }
