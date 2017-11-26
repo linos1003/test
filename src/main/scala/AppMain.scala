@@ -40,12 +40,32 @@ object AppMain extends App {
         computeNewPosition(mower.asInstanceOf[Mower], cmnds.asInstanceOf[List[Cmnd]], lawn)
       }
       LOGGER.info("Initial mowers positions: " + mowers.map { case (mower, _) => mower }
-        .map(_.toString).mkString(", ") + matrixDisplay(mowers.map { case (mower, _) => mower.asInstanceOf[Mower] }, display, lawn))
-      LOGGER.info("Final mowers positions  : " + l.map(_.toString).mkString(", ") + matrixDisplay(l, display, lawn))
+        .map(_.toString).mkString(", ") + matrixDisplay2(mowers.map { case (mower, _) => mower.asInstanceOf[Mower] }, display, lawn))
+      LOGGER.info("Final mowers positions  : " + l.map(_.toString).mkString(", ") + matrixDisplay2(l, display, lawn))
     case Failure(e) =>
       LOGGER.error(e)
   }
 
+
+  def matrixDisplay2(mowers: Seq[Mower], display: Boolean, lawn: Lawn) = {
+
+    val rowSeparator = "+ - "
+    var string = "\n"
+
+    def stringRow(i: Int) = {
+      val header = (0 to lawn.x).toList.flatMap(_ => rowSeparator).mkString("")
+      val content = (0 to lawn.x).toList.flatMap(x => if (!isPositionEmpty(new Mower(x, lawn.y - i, X), mowers)) " X |" else "   |").mkString("")
+      string = string.concat(header).concat("+\n|").concat(content).concat("\n")
+    }
+
+    for (i <- 0 to lawn.y) {
+      stringRow(i)
+    }
+    for (i <- 0 to lawn.x) string = string.concat(rowSeparator)
+    string = string.concat("+")
+    if (display) string else ""
+
+  }
 
   def matrixDisplay(mowers: Seq[Mower], display: Boolean, lawn: Lawn) = {
 
