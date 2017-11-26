@@ -20,7 +20,7 @@ object Commandes {
 
   case object X extends Cmnd
 
-  val commandes = Seq(G, D, A, X)
+  val commands = Seq(G, D, A, X)
 
   def getCommandefromSting(str: Char) = {
 

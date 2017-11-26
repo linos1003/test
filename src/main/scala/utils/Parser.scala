@@ -1,6 +1,6 @@
 package utils
 
-import exceptions.{InvalidCommandFormatException, InvalidLawnInputFormatException, InvalidMowerInputFormatException}
+import exceptions.{ InvalidLawnInputFormatException, InvalidMowerInputFormatException}
 import models.Commandes._
 import models.Orientation.getOrientationfromSting
 import models.{Lawn, Mower}

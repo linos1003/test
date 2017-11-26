@@ -1,7 +1,5 @@
 package exceptions
 
-import models.Mower
-
 /**
   * Created by bsmida on 20/11/17.
   */

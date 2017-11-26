@@ -11,8 +11,6 @@ import utils.Parser.{parseCommands, parseMower, readFile}
   */
 object PositionsManger {
 
-  var lawn: Lawn = new Lawn(0, 0)
-
   /**
     * Function used to extract mowers from the input text.
     * Assuming tha the first line of the String Seq is referenced to the Lawn length.
@@ -29,16 +27,16 @@ object PositionsManger {
     * If the next postion is off the lawn area , then we conserve the last position.
     *
     * @param mower
-    * @param commandes
+    * @param commands
     * @return
     */
 
-  def computeNewPosition(mower: Mower, commandes: Seq[Cmnd]) = {
+  def computeNewPosition(mower: Mower, commands: Seq[Cmnd], lawn: Lawn) = {
     var newMower = mower
-    commandes.foreach {
+    commands.foreach {
       x =>
         val next = nextPosition(newMower, x)
-        if (isInLawnArea(next))
+        if (isInLawnArea(next, lawn))
           newMower = next
     }
     newMower
@@ -81,7 +79,7 @@ object PositionsManger {
     * @return true if the Mower is in the Lawn Area
     */
 
-  def isInLawnArea(x: Mower) = {
+  def isInLawnArea(x: Mower, lawn: Lawn) = {
     x.x <= lawn.x && x.y <= lawn.y && x.x >= 0 && x.y >= 0
   }
 
@@ -96,9 +94,9 @@ object PositionsManger {
 
   def isPositionEmpty(mower: Mower, seq: Seq[Mower]): Boolean = seq.filter(p => p.hasSamePosition(mower)).isEmpty
 
-  def getFinalPositions(inputs: Seq[String]) = {
+  def getFinalPositions(inputs: Seq[String], lawn: Lawn) = {
     val mowers = loadMowersAndCommands(inputs)
-    val l = mowers.map(x => computeNewPosition(x._1.asInstanceOf[Mower], x._2.asInstanceOf[List[Cmnd]]))
+    val l = mowers.map(x => computeNewPosition(x._1.asInstanceOf[Mower], x._2.asInstanceOf[List[Cmnd]], lawn))
     l
   }
 
