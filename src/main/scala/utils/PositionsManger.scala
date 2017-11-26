@@ -68,8 +68,9 @@ object PositionsManger {
       case (A, S) => Mower(mower.x, mower.y - 1, S)
       case (A, E) => Mower(mower.x + 1, mower.y, E)
       case (A, N) => Mower(mower.x, mower.y + 1, N)
-      case (_,X) =>  Mower(mower.x,mower.y,X)
+      case (_,_) =>  Mower(mower.x,mower.y,X)
     }
+
   }
 
   /**

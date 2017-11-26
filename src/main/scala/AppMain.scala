@@ -13,32 +13,49 @@ object AppMain extends App {
 
   val LOGGER = Logger.getLogger(this.getClass)
 
-  if (args.length < 2)
+  if (args.length < 2) {
     LOGGER.error(
       """
         |Wrong number of parameters
-        |Usage: AppMain <input-file-path> <output-file-path>
+        |Usage: AppMain <input-file-path> <output-file-path> <matrix-dislay>
+        |      <input-file-path> the path of the input file
+        |      <output-file-path> the path of the output file
+        |      <matrix-display> Optional boolean (true or false) which indicate
+        |            if you want to show results as a matrix
       """.stripMargin
     )
-  val inputs = readFile(args(0))
-  lawn = initLawn(inputs(0))
-  val mowers = loadMowersAndCommands(inputs)
-  val l = mowers.map(x => computeNewPosition(x._1, x._2))
-  LOGGER.info("Initial mowers positions: " + mowers.map(_._1).map(_.toString).mkString(", ") + matrixDisplay(mowers.map(_._1)))
-  LOGGER.info("Final mowers positions  : " + l.map(_.toString).mkString(", ") + matrixDisplay(l))
+    System.exit(1)
+  }
+
+  try {
+    val inputs = readFile(args(0))
+    val display=if(args.length==3 && Array("true","false").contains(args(2))) args(2).toBoolean else false
+    lawn = initLawn(inputs(0))
+    val mowers = loadMowersAndCommands(inputs)
+    val l = mowers.map(x => computeNewPosition(x._1, x._2))
+
+    LOGGER.info("Initial mowers positions: " + mowers.map(_._1).map(_.toString).mkString(", ") + matrixDisplay(mowers.map(_._1),display))
+    LOGGER.info("Final mowers positions  : " + l.map(_.toString).mkString(", ") + matrixDisplay(l,display))
+  }
+  catch {
+    case e: java.io.FileNotFoundException => LOGGER.error("Input File not found! Verify the path")
+  }
 
 
-  def matrixDisplay(mowers: Seq[Mower]) = {
+  def matrixDisplay(mowers: Seq[Mower], display: Boolean) = {
+
     val rowSeparator = "+ - "
     var string = "\n"
     for (i <- 0 to lawn.y) {
       for (j <- 0 to lawn.x) string = string.concat(rowSeparator)
       string = string.concat("+\n|")
-      for (j <- 0 to lawn.x) string = string.concat(if (!isPositionEmpty(new Mower(j, i, X), mowers)) " X |" else "   |")
+      for (j <- 0 to lawn.x) string = string.concat(if (!isPositionEmpty(new Mower(j, lawn.y - i, X), mowers)) " X |" else "   |")
       string = string.concat("\n")
     }
     for (i <- 0 to lawn.x) string = string.concat(rowSeparator)
     string = string.concat("+")
-    string
+   if(display) string else ""
   }
+
+  // todo develop function to write output file
 }

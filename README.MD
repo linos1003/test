@@ -9,4 +9,4 @@ You can find instructions for installing the Maven for different platforms here:
 ## Build and run the application
 - First, clone the project from github : git clone https://github.com/linos1003/test.git
 - Enter to the root folder  "cd test" , and build the project using maven "mvn clean install"
--
+- run the program with  the folowing command :
