@@ -5,11 +5,11 @@ import utils.PositionsManger._
 /**
   * Created by bsmida on 19/11/17.
   */
-class Test extends FlatSpec {
+class TestCase extends FlatSpec {
   /**
     * Use case test  from the exam
     */
-  "Mowers positions" should " be calculated as expected " in {
+  "USE CASE 1: Mowers positions" should " be calculated as expected " in {
     val inputs = readFile("src/test/resources/in/mower_use_case_1.in")
     val expectedPositions = loadPositions("src/test/resources/out/mower_use_case_1.out")
     lawn = initLawn(inputs(0))
