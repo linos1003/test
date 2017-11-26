@@ -1,4 +1,5 @@
 ## Synopsis
- This program ...
-## Installation
-To run the main ...
+This is a scala program
+## Prerequisite
+### Maven
+
