@@ -57,9 +57,9 @@ object PositionsManger {
     var newMower = null
     (cmnd, mower.orientation) match {
       case (G, W) | (D, E) => Mower(mower.x, mower.y, S)
-      case (G, S) | (D, S) => Mower(mower.x, mower.y, E)
+      case (G, S) | (D, N) => Mower(mower.x, mower.y, E)
       case (G, E) | (D, W) => Mower(mower.x, mower.y, N)
-      case (G, N) | (D, N) => Mower(mower.x, mower.y, W)
+      case (G, N) | (D, S) => Mower(mower.x, mower.y, W)
       //case (D, W) => Mower(mower.x, mower.y, N)
       //case (D, S) => Mower(mower.x, mower.y, E)
       //case (D, E) => Mower(mower.x, mower.y, S)

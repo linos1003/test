@@ -24,9 +24,8 @@ object AppMain extends App {
   lawn = initLawn(inputs(0))
   val mowers = loadMowersAndCommands(inputs)
   val l = mowers.map(x => computeNewPosition(x._1, x._2))
-  LOGGER.info("Initial mowers positions: " + mowers.map(_._1).map(_.toString).mkString(", ")+  matrixDisplay(mowers.map(_._1)))
-  LOGGER.info("Final mowers positions  : " + l.map(_.toString).mkString(", ")+matrixDisplay(l))
-
+  LOGGER.info("Initial mowers positions: " + mowers.map(_._1).map(_.toString).mkString(", ") + matrixDisplay(mowers.map(_._1)))
+  LOGGER.info("Final mowers positions  : " + l.map(_.toString).mkString(", ") + matrixDisplay(l))
 
 
   def matrixDisplay(mowers: Seq[Mower]) = {

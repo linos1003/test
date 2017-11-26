@@ -10,8 +10,8 @@ class Test extends FlatSpec {
     * Use case test  from the exam
     */
   "Mowers positions" should " be calculated as expected " in {
-    val inputs = readFile("src/test/resources/in/mower.in")
-    val expectedPositions = loadPositions("src/test/resources/out/mower.out")
+    val inputs = readFile("src/test/resources/in/mower_use_case_1.in")
+    val expectedPositions = loadPositions("src/test/resources/out/mower_use_case_1.out")
     lawn = initLawn(inputs(0))
 
     val mowers = loadMowersAndCommands(inputs)
@@ -20,7 +20,11 @@ class Test extends FlatSpec {
   }
 
   /**
-    * Another custom tes use case
+    * A custom test case contains mowers with off lawn area movements.
+    * example :   the   next  position   of   a  mower  having  (0,0)
+    * coordinates west orientation  and  A  command can't be (-1 , 0).
+    * So we keep the last position.
+    *
     */
   "USE CASE 2: Mowers positions" should " be calculated as expected " in {
     val inputs = readFile("src/test/resources/in/mower_use_case_2.in")
@@ -32,5 +36,19 @@ class Test extends FlatSpec {
     assert(l.toSet == expectedPositions.toSet)
   }
 
+
+  /**
+    * A custom test case contains random mowers and commands.
+    *
+    */
+  "USE CASE 3: Mowers positions" should " be calculated as expected " in {
+    val inputs = readFile("src/test/resources/in/mower_use_case_3.in")
+    val expectedPositions = loadPositions("src/test/resources/out/mower_use_case_3.out")
+    lawn = initLawn(inputs(0))
+
+    val mowers = loadMowersAndCommands(inputs)
+    val l = mowers.map(x => computeNewPosition(x._1, x._2))
+    assert(l.toList == expectedPositions.toList)
+  }
 
 }
