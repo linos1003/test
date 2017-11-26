@@ -98,4 +98,10 @@ object PositionsManger {
 
   def isPositionEmpty(mower: Mower,seq: Seq[Mower]): Boolean = seq.filter(p => p.hasSamePosition(mower)).isEmpty
 
+   def getFinalPositions(inputs: Seq[String]) = {
+    val mowers = loadMowersAndCommands(inputs)
+    val l = mowers.map(x => computeNewPosition(x._1, x._2))
+    l
+  }
+
 }

@@ -1,10 +1,14 @@
 
+import java.io.FileNotFoundException
+
 import models.Mower
 import models.Orientation.X
 import org.apache.log4j.Logger
 import utils.Parser.initLawn
 import utils.PositionsManger._
 import utils.Parser._
+
+import scala.util.{Failure, Success, Try}
 
 /**
   * Created by bsmida on 19/11/17.
@@ -27,18 +31,18 @@ object AppMain extends App {
     System.exit(1)
   }
 
-  try {
-    val inputs = readFile(args(0))
-    val display=if(args.length==3 && Array("true","false").contains(args(2))) args(2).toBoolean else false
-    lawn = initLawn(inputs(0))
-    val mowers = loadMowersAndCommands(inputs)
-    val l = mowers.map(x => computeNewPosition(x._1, x._2))
 
-    LOGGER.info("Initial mowers positions: " + mowers.map(_._1).map(_.toString).mkString(", ") + matrixDisplay(mowers.map(_._1),display))
-    LOGGER.info("Final mowers positions  : " + l.map(_.toString).mkString(", ") + matrixDisplay(l,display))
-  }
-  catch {
-    case e: java.io.FileNotFoundException => LOGGER.error("Input File not found! Verify the path")
+  val inputs = Try(readFile(args(0)))
+  inputs match {
+    case Success(inputs) =>
+      val display = if (args.length == 3 && Array("true", "false").contains(args(2))) args(2).toBoolean else false
+      lawn = initLawn(inputs(0))
+      val mowers = loadMowersAndCommands(inputs)
+      val l = mowers.map(x => computeNewPosition(x._1, x._2))
+      LOGGER.info("Initial mowers positions: " + mowers.map(_._1).map(_.toString).mkString(", ") + matrixDisplay(mowers.map(_._1), display))
+      LOGGER.info("Final mowers positions  : " + l.map(_.toString).mkString(", ") + matrixDisplay(l, display))
+    case Failure(e) =>
+      LOGGER.error(e)
   }
 
 
@@ -54,7 +58,7 @@ object AppMain extends App {
     }
     for (i <- 0 to lawn.x) string = string.concat(rowSeparator)
     string = string.concat("+")
-   if(display) string else ""
+    if (display) string else ""
   }
 
   // todo develop function to write output file

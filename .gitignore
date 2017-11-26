@@ -1,5 +1,4 @@
 .idea/
 target/
-*.yml
 *.iml
 dependency-reduced-pom.xml

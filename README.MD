@@ -15,7 +15,7 @@ You can find instructions for installing the Maven for different platforms here:
 ```
 mvn clean install
 ```
-- run the program with  the folowing command : java -jar test.jar <your input path file> <your output path file>  <diplay details (true or false)>
+- run the program with  the folowing command : java -jar test.jar <your input path file> <your output path file>  <diplay details (true or false)>.
 The third parameter is optional.
 Example  using the default file in the project:
 ```

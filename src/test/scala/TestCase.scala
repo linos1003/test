@@ -1,3 +1,4 @@
+import models.Mower
 import org.scalatest.FlatSpec
 import utils.Parser._
 import utils.PositionsManger._
@@ -14,8 +15,7 @@ class TestCase extends FlatSpec {
     val expectedPositions = loadPositions("src/test/resources/out/mower_use_case_1.out")
     lawn = initLawn(inputs(0))
 
-    val mowers = loadMowersAndCommands(inputs)
-    val l = mowers.map(x => computeNewPosition(x._1, x._2))
+    val l = getFinalPositions(inputs)
     assert(l.toSet == expectedPositions.toSet)
   }
 
@@ -26,13 +26,15 @@ class TestCase extends FlatSpec {
     * So we keep the last position.
     *
     */
+
+
   "USE CASE 2: Mowers positions" should " be calculated as expected " in {
     val inputs = readFile("src/test/resources/in/mower_use_case_2.in")
     val expectedPositions = loadPositions("src/test/resources/out/mower_use_case_2.out")
     lawn = initLawn(inputs(0))
 
-    val mowers = loadMowersAndCommands(inputs)
-    val l = mowers.map(x => computeNewPosition(x._1, x._2))
+    val l = getFinalPositions(inputs)
+
     assert(l.toSet == expectedPositions.toSet)
   }
 
@@ -46,8 +48,8 @@ class TestCase extends FlatSpec {
     val expectedPositions = loadPositions("src/test/resources/out/mower_use_case_3.out")
     lawn = initLawn(inputs(0))
 
-    val mowers = loadMowersAndCommands(inputs)
-    val l = mowers.map(x => computeNewPosition(x._1, x._2))
+    val l = getFinalPositions(inputs)
+
     assert(l.toList == expectedPositions.toList)
   }
 
