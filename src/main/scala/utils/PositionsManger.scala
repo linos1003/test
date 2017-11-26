@@ -39,6 +39,12 @@ object PositionsManger {
         if (isInLawnArea(next, lawn))
           newMower = next
     }
+    commands.map(x => {
+      val next = nextPosition(newMower, x)
+      if (isInLawnArea(next, lawn))
+         next
+    }
+    )
     newMower
   }
 

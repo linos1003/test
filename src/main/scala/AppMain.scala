@@ -36,8 +36,11 @@ object AppMain extends App {
       val display = if (args.length == 3 && Array("true", "false").contains(args(2))) args(2).toBoolean else false
       val lawn = initLawn(inputs(0)).asInstanceOf[Lawn]
       val mowers = loadMowersAndCommands(inputs)
-      val l = mowers.map(x => computeNewPosition(x._1.asInstanceOf[Mower], x._2.asInstanceOf[List[Cmnd]], lawn))
-      LOGGER.info("Initial mowers positions: " + mowers.map(_._1).map(_.toString).mkString(", ") + matrixDisplay(mowers.map(_._1.asInstanceOf[Mower]), display,lawn))
+      val l = mowers.map { case (mower, cmnds) =>
+        computeNewPosition(mower.asInstanceOf[Mower], cmnds.asInstanceOf[List[Cmnd]], lawn)
+      }
+      LOGGER.info("Initial mowers positions: " + mowers.map { case (mower, _) => mower }
+        .map(_.toString).mkString(", ") + matrixDisplay(mowers.map { case (mower, _) => mower.asInstanceOf[Mower] }, display, lawn))
       LOGGER.info("Final mowers positions  : " + l.map(_.toString).mkString(", ") + matrixDisplay(l, display, lawn))
     case Failure(e) =>
       LOGGER.error(e)
