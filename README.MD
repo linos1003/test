@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/linos1003/test.svg?branch=master)](https://travis-ci.org/linos1003/test)
+
+
 ## Synopsis
 This is a scala program
 ## Prerequisite
