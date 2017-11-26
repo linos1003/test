@@ -9,4 +9,19 @@ You can find instructions for installing the Maven for different platforms here:
 ## Build and run the application
 - First, clone the project from github : git clone https://github.com/linos1003/test.git
 - Enter to the root folder  "cd test" , and build the project using maven "mvn clean install"
-- run the program with  the folowing command :
+- run the program with  the folowing command : java -jar test.jar <your input path file> <your output path file>  <diplay details (true or false)>
+The third parameter is optional
+Example  using the default file in the project:
+```
+java -jar target/test.jar mower.in mower.out
+```
+And the following result will be shown:
+```
+2017-11-26 04:18:57 INFO  AppMain$:37 - Initial mowers positions: (1,2,N), (3,3,E)
+2017-11-26 04:18:57 INFO  AppMain$:38 - Final mowers positions  : (1,3,N), (5,1,E)
+```
+ Example with the display option true
+
+```
+java -jar target/test.jar mower.in mower.out
+```
