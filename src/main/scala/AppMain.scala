@@ -40,47 +40,31 @@ object AppMain extends App {
         computeNewPosition(mower.asInstanceOf[Mower], cmnds.asInstanceOf[List[Cmnd]], lawn)
       }
       LOGGER.info("Initial mowers positions: " + mowers.map { case (mower, _) => mower }
-        .map(_.toString).mkString(", ") + matrixDisplay2(mowers.map { case (mower, _) => mower.asInstanceOf[Mower] }, display, lawn))
-      LOGGER.info("Final mowers positions  : " + l.map(_.toString).mkString(", ") + matrixDisplay2(l, display, lawn))
+        .map(_.toString).mkString(", ") + matrixDisplay(mowers.map { case (mower, _) => mower.asInstanceOf[Mower] }, display, lawn))
+      LOGGER.info("Final mowers positions  : " + l.map(_.toString).mkString(", ") + matrixDisplay(l, display, lawn))
     case Failure(e) =>
       LOGGER.error(e)
   }
 
 
-  def matrixDisplay2(mowers: Seq[Mower], display: Boolean, lawn: Lawn) = {
-
-    val rowSeparator = "+ - "
-    var string = "\n"
-
-    def stringRow(i: Int) = {
-      val header = (0 to lawn.x).toList.flatMap(_ => rowSeparator).mkString("")
-      val content = (0 to lawn.x).toList.flatMap(x => if (!isPositionEmpty(new Mower(x, lawn.y - i, X), mowers)) " X |" else "   |").mkString("")
-      string = string.concat(header).concat("+\n|").concat(content).concat("\n")
-    }
-
-    for (i <- 0 to lawn.y) {
-      stringRow(i)
-    }
-    for (i <- 0 to lawn.x) string = string.concat(rowSeparator)
-    string = string.concat("+")
-    if (display) string else ""
-
-  }
-
   def matrixDisplay(mowers: Seq[Mower], display: Boolean, lawn: Lawn) = {
 
     val rowSeparator = "+ - "
-    var string = "\n"
-    for (i <- 0 to lawn.y) {
-      for (j <- 0 to lawn.x) string = string.concat(rowSeparator)
-      string = string.concat("+\n|")
-      for (j <- 0 to lawn.x) string = string.concat(if (!isPositionEmpty(new Mower(j, lawn.y - i, X), mowers)) " X |" else "   |")
-      string = string.concat("\n")
+
+    def stringRow(i: Int): String = {
+      val header = (0 to lawn.x).toList.flatMap(_ => rowSeparator).mkString("")
+      val content = (0 to lawn.x).toList.flatMap(x => if (!isPositionEmpty(new Mower(x, lawn.y - i, X), mowers)) " X |" else "   |").mkString("")
+      header.concat("+\n|").concat(content).concat("\n")
     }
-    for (i <- 0 to lawn.x) string = string.concat(rowSeparator)
-    string = string.concat("+")
-    if (display) string else ""
+
+    val str = "\n" + (0 to lawn.y).toList.flatMap(i => stringRow(i)).mkString("")
+
+    val strFinal = str + (0 to lawn.x).toList.flatMap(_ => rowSeparator).mkString("").concat("+")
+
+    if (display) strFinal else ""
+
   }
+
 
   // todo develop function to write output file
 }
