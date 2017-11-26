@@ -1,8 +1,10 @@
 package exceptions
 
+import models.Mower
+
 /**
   * Created by bsmida on 20/11/17.
   */
-class InvalidMowerInputFormatException extends Exception{
-
+class InvalidMowerInputFormatException (private val mower: String) extends Exception{
+  override def getMessage: String = mower+" is not a valid Mower"
 }

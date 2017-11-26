@@ -1,9 +1,14 @@
 package models
 
+import exceptions.InvalidCommandFormatException
+import org.apache.log4j.Logger
+
 /**
   * Created by bsmida on 19/11/17.
   */
 object Commandes {
+
+  val LOGGER = Logger.getLogger(this.getClass)
 
   sealed trait Cmnd
 
@@ -23,7 +28,7 @@ object Commandes {
       case 'A' => A
       case 'D' => D
       case 'G' => G
-      case _ => X
+      case _ => LOGGER.error(new InvalidCommandFormatException(str))
     }
   }
 }

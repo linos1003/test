@@ -1,6 +1,3 @@
-
-import java.io.FileNotFoundException
-
 import models.Mower
 import models.Orientation.X
 import org.apache.log4j.Logger
