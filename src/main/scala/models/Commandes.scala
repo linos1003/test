@@ -22,7 +22,7 @@ object Commandes {
 
   val commandes = Seq(G, D, A, X)
 
-  def getCommandefromSting(str: Char): Cmnd = {
+  def getCommandefromSting(str: Char) = {
 
     str match {
       case 'A' => A

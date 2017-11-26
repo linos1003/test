@@ -15,7 +15,6 @@ object Parser {
   val LOGGER = Logger.getLogger(this.getClass)
 
   def initLawn(input: String) = {
-
     val values = Try(input.split(" ").map(_.toInt))
     values match {
       case Success(s) =>
@@ -23,7 +22,6 @@ object Parser {
       case Failure(f) =>
         LOGGER.error(new InvalidLawnInputFormatException(input).getMessage)
     }
-
   }
 
   def readFile(filename: String): Seq[String] = {

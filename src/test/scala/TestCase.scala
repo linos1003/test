@@ -1,4 +1,4 @@
-import models.Mower
+import models.{Lawn, Mower}
 import org.scalatest.FlatSpec
 import utils.Parser._
 import utils.PositionsManger._
@@ -13,7 +13,7 @@ class TestCase extends FlatSpec {
   "USE CASE 1: Mowers positions" should " be calculated as expected " in {
     val inputs = readFile("src/test/resources/in/mower_use_case_1.in")
     val expectedPositions = loadPositions("src/test/resources/out/mower_use_case_1.out")
-    lawn = initLawn(inputs(0))
+    lawn = initLawn(inputs(0)).asInstanceOf[Lawn]
 
     val l = getFinalPositions(inputs)
     assert(l.toSet == expectedPositions.toSet)
@@ -31,7 +31,7 @@ class TestCase extends FlatSpec {
   "USE CASE 2: Mowers positions" should " be calculated as expected " in {
     val inputs = readFile("src/test/resources/in/mower_use_case_2.in")
     val expectedPositions = loadPositions("src/test/resources/out/mower_use_case_2.out")
-    lawn = initLawn(inputs(0))
+    lawn = initLawn(inputs(0)).asInstanceOf[Lawn]
 
     val l = getFinalPositions(inputs)
 
@@ -46,11 +46,11 @@ class TestCase extends FlatSpec {
   "USE CASE 3: Mowers positions" should " be calculated as expected " in {
     val inputs = readFile("src/test/resources/in/mower_use_case_3.in")
     val expectedPositions = loadPositions("src/test/resources/out/mower_use_case_3.out")
-    lawn = initLawn(inputs(0))
+    lawn = initLawn(inputs(0)).asInstanceOf[Lawn]
 
     val l = getFinalPositions(inputs)
 
-    assert(l.toList == expectedPositions.toList)
+    assert(l == expectedPositions.toList)
   }
 
 }

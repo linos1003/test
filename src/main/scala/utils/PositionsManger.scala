@@ -21,7 +21,7 @@ object PositionsManger {
     * @return
     */
 
-  def loadMowersAndCommands(inputs: Seq[String]): Seq[(Mower, List[Cmnd])] = inputs.drop(1).sliding(2, 2).toList.map(x => (parseMower(x(0)), parseCommands(x(1))))
+  def loadMowersAndCommands(inputs: Seq[String]) = inputs.drop(1).sliding(2, 2).toList.map(x => (parseMower(x(0)), parseCommands(x(1))))
 
   /**
     * Function used to Calculate the final position of a given Mower in terms of a given commands list
@@ -54,7 +54,6 @@ object PositionsManger {
     */
 
   def nextPosition(mower: Mower, cmnd: Cmnd): Mower = {
-    var newMower = null
     (cmnd, mower.orientation) match {
       case (G, W) | (D, E) => Mower(mower.x, mower.y, S)
       case (G, S) | (D, N) => Mower(mower.x, mower.y, E)
@@ -99,7 +98,7 @@ object PositionsManger {
 
   def getFinalPositions(inputs: Seq[String]) = {
     val mowers = loadMowersAndCommands(inputs)
-    val l = mowers.map(x => computeNewPosition(x._1, x._2))
+    val l = mowers.map(x => computeNewPosition(x._1.asInstanceOf[Mower], x._2.asInstanceOf[List[Cmnd]]))
     l
   }
 
