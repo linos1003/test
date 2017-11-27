@@ -10,6 +10,8 @@ case class Mower(x: Int, y: Int, orientation: Ornt) {
   def hasSamePosition(mower: Mower): Boolean = this.y == mower.y && this.x == mower.x
 
   override def toString = "(" + x + "," + y + "," + orientation + ")"
+
+  def toFileString = x + " " + y + " " + orientation
 }
 
 

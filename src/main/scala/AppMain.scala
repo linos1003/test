@@ -1,10 +1,11 @@
+import java.io.{BufferedWriter, File, FileWriter}
+
 import models.Commandes.Cmnd
-import models.{Lawn, Mower}
 import models.Orientation.X
+import models.{Lawn, Mower}
 import org.apache.log4j.Logger
-import utils.Parser.initLawn
+import utils.Parser.{initLawn, _}
 import utils.PositionsManger._
-import utils.Parser._
 
 import scala.util.{Failure, Success, Try}
 
@@ -42,10 +43,11 @@ object AppMain extends App {
       LOGGER.info("Initial mowers positions: " + mowers.map { case (mower, _) => mower }
         .map(_.toString).mkString(", ") + matrixDisplay(mowers.map { case (mower, _) => mower.asInstanceOf[Mower] }, display, lawn))
       LOGGER.info("Final mowers positions  : " + l.map(_.toString).mkString(", ") + matrixDisplay(l, display, lawn))
+      LOGGER.info("Saving output into file:" + args(1))
+      writeOuputToFile(args(1), l)
     case Failure(e) =>
       LOGGER.error(e)
   }
-
 
   def matrixDisplay(mowers: Seq[Mower], display: Boolean, lawn: Lawn) = {
 
@@ -66,5 +68,10 @@ object AppMain extends App {
   }
 
 
-  // todo develop function to write output file
+  def writeOuputToFile(path: String, mowers: Seq[Mower]): Unit = {
+    val file = new File(path)
+    val bw = new BufferedWriter(new FileWriter(file))
+    bw.write(mowers.map(_.toFileString).mkString("\n"))
+    bw.close()
+  }
 }
