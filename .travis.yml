@@ -4,5 +4,10 @@ jdk:
 sudo: false
 install: mvn clean package
 script: mvn clean verify
+
+env:
+  global:
+    - CODECOV_TOKEN=:1a72f32b-f472-45df-a7b2-435b6e9c7f23
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
