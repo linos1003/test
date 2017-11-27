@@ -4,6 +4,8 @@ import utils.Parser._
 import utils.PositionsManger._
 
 /**
+  * Test Class
+  *
   * Created by bsmida on 19/11/17.
   */
 class TestCase extends FlatSpec {
@@ -54,7 +56,7 @@ class TestCase extends FlatSpec {
   }
 
   /**
-    * A custom test case contains random mowers and commands.
+    * A custom test case contains non square Lawn.
     *
     */
   "USE CASE 4: Mowers positions" should " be calculated as expected " in {
@@ -66,7 +68,5 @@ class TestCase extends FlatSpec {
 
     assert(l == expectedPositions.toList)
   }
-
-  //todo add test for no square  lawn
 
 }

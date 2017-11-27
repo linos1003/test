@@ -1,6 +1,6 @@
 package utils
 
-import models.Commandes.{A, Cmnd, D, G}
+import models.Commands.{A, Cmnd, D, G}
 import models.Orientation._
 import models.{Lawn, Mower}
 import utils.Parser.{parseCommands, parseMower, readFile}
@@ -60,10 +60,6 @@ object PositionsManger {
       case (G, S) | (D, N) => Mower(mower.x, mower.y, E)
       case (G, E) | (D, W) => Mower(mower.x, mower.y, N)
       case (G, N) | (D, S) => Mower(mower.x, mower.y, W)
-      //case (D, W) => Mower(mower.x, mower.y, N)
-      //case (D, S) => Mower(mower.x, mower.y, E)
-      //case (D, E) => Mower(mower.x, mower.y, S)
-      //case (D, N) => Mower(mower.x, mower.y, W)
       case (A, W) => Mower(mower.x - 1, mower.y, W)
       case (A, S) => Mower(mower.x, mower.y - 1, S)
       case (A, E) => Mower(mower.x + 1, mower.y, E)
@@ -87,16 +83,31 @@ object PositionsManger {
   }
 
   /**
+    * Function used to load final positions in test use cases
     *
     * @param path
-    * @return
+    * @return list of mowers
     */
 
   def loadPositions(path: String) = readFile(path).map(parseMower)
 
-
+  /**
+    * Function used to check if a given position
+    * is empty or not to perform display
+    *
+    * @param mower
+    * @param seq
+    * @return true or false
+    */
   def isPositionEmpty(mower: Mower, seq: Seq[Mower]): Boolean = seq.filter(p => p.hasSamePosition(mower)).isEmpty
 
+  /**
+    * Function used to compute final positions from a given list of mowers
+    *
+    * @param inputs
+    * @param lawn
+    * @return Seq of Mowers
+    */
   def getFinalPositions(inputs: Seq[String], lawn: Lawn) = {
     val mowers = loadMowersAndCommands(inputs)
     val l = mowers.map { case (mower, cmnds) => computeNewPosition(mower.asInstanceOf[Mower], cmnds.asInstanceOf[List[Cmnd]], lawn) }

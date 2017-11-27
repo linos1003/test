@@ -6,7 +6,7 @@ import org.apache.log4j.Logger
 /**
   * Created by bsmida on 19/11/17.
   */
-object Commandes {
+object Commands {
 
   val LOGGER = Logger.getLogger(this.getClass)
 
@@ -22,6 +22,12 @@ object Commandes {
 
   val commands = Seq(G, D, A, X)
 
+  /**
+    * Function used to parse a char into a Cmnd object
+    *
+    * @param str
+    * @return Cmnd object
+    */
   def getCommandefromSting(str: Char) = {
 
     str match {
