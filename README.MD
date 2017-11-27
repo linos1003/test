@@ -21,7 +21,10 @@ git clone https://github.com/linos1003/test.git
 ```
 mvn clean install
 ```
-- run the program with  the folowing command : java -jar test.jar <your input path file> <your output path file>  <diplay details (true or false)>.
+- run the program with  the folowing command : 
+```
+java -jar test.jar <your input path file> <your output path file>  <diplay details (true or false):optional>.
+```
 The third parameter is optional.
 Example  using the default file in the project:
 ```
