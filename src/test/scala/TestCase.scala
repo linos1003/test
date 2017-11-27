@@ -1,4 +1,4 @@
-import models.{Lawn, Mower}
+import models.Lawn
 import org.scalatest.FlatSpec
 import utils.Parser._
 import utils.PositionsManger._
@@ -46,6 +46,20 @@ class TestCase extends FlatSpec {
   "USE CASE 3: Mowers positions" should " be calculated as expected " in {
     val inputs = readFile("src/test/resources/in/mower_use_case_3.in")
     val expectedPositions = loadPositions("src/test/resources/out/mower_use_case_3.out")
+    val lawn = initLawn(inputs(0)).asInstanceOf[Lawn]
+
+    val l = getFinalPositions(inputs, lawn)
+
+    assert(l == expectedPositions.toList)
+  }
+
+  /**
+    * A custom test case contains random mowers and commands.
+    *
+    */
+  "USE CASE 4: Mowers positions" should " be calculated as expected " in {
+    val inputs = readFile("src/test/resources/in/mower_use_case_4.in")
+    val expectedPositions = loadPositions("src/test/resources/out/mower_use_case_4.out")
     val lawn = initLawn(inputs(0)).asInstanceOf[Lawn]
 
     val l = getFinalPositions(inputs, lawn)
