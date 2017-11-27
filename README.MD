@@ -17,13 +17,13 @@ You can find instructions for installing the Maven for different platforms here:
 ```
 git clone https://github.com/linos1003/test.git
 ```
-- Enter to the root folder  "cd test" , and build the project using maven
+- Enter to the root folder   ```cd test```  , and build the project using maven
 ```
 mvn clean install
 ```
-- run the program with  the folowing command : 
+- run the program with  the following commands : 
 ```
-java -jar test.jar <your input path file> <your output path file>  <diplay details (true or false):optional>.
+java -jar target/test.jar <your input path file> <your output path file>  <diplay details (true or false):optional>.
 ```
 The third parameter is optional.
 Example  using the default file in the project:
