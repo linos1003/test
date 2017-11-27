@@ -1,8 +1,7 @@
+# Installation Guide 
+## Code Mertics
 
-## Mertics
-
-
-|      Stable    | Code Quality | Source code|
+|      Test Coverage    | Code Quality | Source code|
 |:-------------:|:------:|:------:|
 |[![Coverage Status](https://coveralls.io/repos/github/linos1003/test/badge.svg)](https://coveralls.io/github/linos1003/test)|[![Codacy Badge](https://api.codacy.com/project/badge/Grade/71143d6fbc754d66937e31e138a8836b)](https://www.codacy.com/app/linos1003/test?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=linos1003/test&amp;utm_campaign=Badge_Grade)|[![Build Status](https://travis-ci.org/linos1003/test.svg?branch=master)](https://travis-ci.org/linos1003/test)|
 
@@ -69,3 +68,5 @@ And the following result will be shown:
 |   |   |   |   |   |   |
 + - + - + - + - + - + - +
 ```
+Also we can check the output file passed in parameter.
+ 
